@@ -6,7 +6,7 @@ import (
 	chiMiddleware "github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
-	"github.com/ivan-salazar14/firstGoPackage/domain/sales/infrastructure/handlers"
+	"github.com/ivan-salazar14/firstGoPackage/domain/loyalty/infrastructure/handlers"
 	"github.com/ivan-salazar14/firstGoPackage/infrastructure/database"
 	"github.com/rs/zerolog/log"
 	"os"
@@ -24,7 +24,7 @@ func (s *Server) newServerHttp(w http.ResponseWriter, r *http.Request) {
 	s.Handler.ServeHTTP(w, r)
 }
 
-func newServer(port string, conn *database.DataDB) *Server {
+func newServer(port string, conn *database.Service) *Server {
 
 	router := chi.NewRouter()
 
@@ -41,10 +41,8 @@ func newServer(port string, conn *database.DataDB) *Server {
 	router.Use(chiMiddleware.Recoverer)
 	router.Use(corsMiddleware.Handler)
 
-	//saleRepo := infrastructure.NewConnection(conn)
-	//	saleService := service.NewSaleService(saleRepo)
 	// Crear handlers para cada dominio
-	saleHandlers := handlers.NewSaleHandler(conn, router)
+	saleHandlers := handlers.NewLoyaltyHandler(conn, router)
 	//default path to be used in the health checker
 	saleHandlers.Routes()
 	s := &http.Server{
@@ -91,17 +89,15 @@ func (srv *Server) Start() {
 // Start aa
 func Start(port string) {
 	// connection to the database.
-	db, err := database.New()
+	db, err := database.NewDynamoDB()
+	log.Info().Msg(("db paso start"))
 	if err != nil {
 		fmt.Println("entro error %s", err)
 		return
 	}
 	fmt.Println("entro start")
 	defer func() {
-		err = db.DB.Close()
-		if err != nil {
-			fmt.Errorf("could not close BD : [error] %s", err.Error())
-		}
+		db.DB.Config.HTTPClient.CloseIdleConnections()
 	}()
 
 	server := newServer(port, db)
