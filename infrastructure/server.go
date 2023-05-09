@@ -90,9 +90,8 @@ func (srv *Server) Start() {
 func Start(port string) {
 	// connection to the database.
 	db, err := database.NewDynamoDB()
-	log.Info().Msg(("db paso start"))
 	if err != nil {
-		fmt.Println("entro error %s", err)
+		fmt.Printf("entro error %s\n", err)
 		return
 	}
 	fmt.Println("entro start")

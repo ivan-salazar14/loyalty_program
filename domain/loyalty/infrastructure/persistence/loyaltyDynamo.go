@@ -32,7 +32,7 @@ func (db *dbLoyalty) RedeemPoints(ctx context.Context, userId string, points int
 
 	// Check if the user has enough points to redeem
 	if userPoints < points {
-		return fmt.Errorf("user does not have enough points to redeem %s", userPoints)
+		return fmt.Errorf("user does not have enough points to redeem %d", userPoints)
 	}
 
 	// Create a new PutItemInput object to insert a new item into the table
@@ -102,7 +102,7 @@ func (db *dbLoyalty) GetPoints(ctx context.Context, userId string) (int, error) 
 		return 0, err
 	}
 	fmt.Printf("total found --------- %s", result.Item)
-	fmt.Printf("total  --------- %s", points.Points)
+	fmt.Printf("total  --------- %d", points.Points)
 	fmt.Printf("UserId  --------- %s", points.UserId)
 	log.Info().Msg(result.String())
 	return points.Points, nil
@@ -123,7 +123,6 @@ func (db *dbLoyalty) GetTransactions(ctx context.Context, userId string) (*[]mod
 		return nil, err
 	}
 	if result.Items == nil {
-		fmt.Printf("vacio found --------- %s")
 		return nil, err
 	}
 	// Unmarshal the results

@@ -43,7 +43,6 @@ func (s *LoyaltyHandler) CollectPointsHandler(w http.ResponseWriter, r *http.Req
 		http.Error(w, fmt.Sprintf("failed to decode request body: %v", err), http.StatusBadRequest)
 		return
 	}
-	fmt.Errorf(" requestBody", requestBody)
 
 	err := s.loyaltyService.CollectPoints(ctx, requestBody.UserId, &requestBody.Product)
 	if err != nil {
