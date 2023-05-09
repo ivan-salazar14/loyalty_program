@@ -1,6 +1,6 @@
 package model
 
 type User struct {
-	ID     string
-	Points int
+	UserID string `json:"UserId"`
+	Points int    `json:"totalPoints"`
 }

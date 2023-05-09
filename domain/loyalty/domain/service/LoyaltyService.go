@@ -3,7 +3,10 @@ package service
 import (
 	"context"
 	"fmt"
+	"github.com/ivan-salazar14/firstGoPackage/domain/loyalty/domain/model"
 	"github.com/ivan-salazar14/firstGoPackage/domain/loyalty/domain/repository"
+	"math"
+	"os"
 	"strconv"
 )
 
@@ -32,13 +35,24 @@ func (c LoyaltyService) GetPoints(ctx context.Context, userId string) (int, erro
 	return points, nil
 
 }
-func (c LoyaltyService) CollectPoints(ctx context.Context, userId string, points string) error {
 
-	pointsToCollet, err := strconv.Atoi(points)
+func (c LoyaltyService) GetTransactions(ctx context.Context, userId string) (*[]model.Transaction, error) {
+	transactions, err := c.LoyaltyRepository.GetTransactions(ctx, userId)
+	fmt.Sprint("err en handler", err)
 	if err != nil {
-		fmt.Println("Error during conversion")
+		return nil, err
+	}
+	return transactions, nil
+
+}
+func (c LoyaltyService) CollectPoints(ctx context.Context, userId string, product *model.Product) error {
+
+	pointsToAdd, err := strconv.ParseFloat(os.Getenv("PERCENT_POINTS"), 64)
+	if err != nil {
 		return err
 	}
-	err = c.LoyaltyRepository.CollectPoints(ctx, userId, pointsToCollet)
+	pointsToAdd = pointsToAdd * product.Price
+
+	err = c.LoyaltyRepository.CollectPoints(ctx, userId, int(math.Round(pointsToAdd)), product)
 	return err
 }

@@ -1,5 +1,5 @@
-# ecommerce plan Loyalty 
-Loyalty project made with arquitecture DDD and single page on dynamodb.
+# Ecommerce plan Loyalty 
+Loyalty project made with architecture DDD and single page on dynamodb.
 
 ## Steps:
 1. Define your aws credentials on your local environment 
@@ -8,3 +8,11 @@ Loyalty project made with arquitecture DDD and single page on dynamodb.
 
 ### Server start 
     go run cmd/main.go
+### Routes:
+	GET     /loyalty/{id}
+
+	POST    /loyalty/redeem
+
+	POST    /loyalty/collect
+
+    GET     /loyalty/moves
