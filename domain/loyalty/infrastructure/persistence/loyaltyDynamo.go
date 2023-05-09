@@ -214,7 +214,13 @@ func (db *dbLoyalty) updatePoints(ctx context.Context, userId string, points int
 	return nil
 }
 
-func NewConnection(connectDb *database.Service) repoDomain.LoyaltyRepository {
+func NewConnection(connectDb *database.Service) repoDomain.LoyaltyCommandRepository {
+	return &dbLoyalty{
+		ConnectDb: connectDb,
+		tableName: os.Getenv("TABLE_NAME"),
+	}
+}
+func NewConnectionQuery(connectDb *database.Service) repoDomain.LoyaltyQueryRepository {
 	return &dbLoyalty{
 		ConnectDb: connectDb,
 		tableName: os.Getenv("TABLE_NAME"),

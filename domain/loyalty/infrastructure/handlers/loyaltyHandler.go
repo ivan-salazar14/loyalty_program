@@ -20,7 +20,7 @@ type LoyaltyHandler struct {
 
 func NewLoyaltyHandler(db *database.Service, router *chi.Mux) *LoyaltyHandler {
 	return &LoyaltyHandler{
-		loyaltyService: service.NewLoyaltyService(persistence.NewConnection(db)),
+		loyaltyService: service.NewLoyaltyService(persistence.NewConnection(db), persistence.NewConnectionQuery(db)),
 		router:         router,
 	}
 }
@@ -92,7 +92,7 @@ func (s *LoyaltyHandler) GetPointsHandler(w http.ResponseWriter, r *http.Request
 	var ctx = r.Context()
 	var id = chi.URLParam(r, "id")
 	fmt.Printf("id %s\n", id)
-	points, err := s.loyaltyService.GetPoints(ctx, id)
+	points, err := s.loyaltyService.LoyaltyQueryRepository.GetPoints(ctx, id)
 	if err != nil {
 		fmt.Printf("err err err %s\n", err)
 		http.Error(w, err.Error(), http.StatusNotFound)

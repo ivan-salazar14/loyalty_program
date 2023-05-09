@@ -11,12 +11,14 @@ import (
 )
 
 type LoyaltyService struct {
-	LoyaltyRepository repository.LoyaltyRepository
+	LoyaltyRepository      repository.LoyaltyCommandRepository
+	LoyaltyQueryRepository repository.LoyaltyQueryRepository
 }
 
-func NewLoyaltyService(repo repository.LoyaltyRepository) *LoyaltyService {
+func NewLoyaltyService(repo repository.LoyaltyCommandRepository, query repository.LoyaltyQueryRepository) *LoyaltyService {
 	return &LoyaltyService{
-		LoyaltyRepository: repo,
+		LoyaltyRepository:      repo,
+		LoyaltyQueryRepository: query,
 	}
 }
 func (c LoyaltyService) RedeemPoints(ctx context.Context, userId string, points int) error {
@@ -27,7 +29,7 @@ func (c LoyaltyService) RedeemPoints(ctx context.Context, userId string, points 
 }
 
 func (c LoyaltyService) GetPoints(ctx context.Context, userId string) (int, error) {
-	points, err := c.LoyaltyRepository.GetPoints(ctx, userId)
+	points, err := c.LoyaltyQueryRepository.GetPoints(ctx, userId)
 	fmt.Sprint("err en handler", err)
 	if err != nil {
 		return -1, err
@@ -37,7 +39,7 @@ func (c LoyaltyService) GetPoints(ctx context.Context, userId string) (int, erro
 }
 
 func (c LoyaltyService) GetTransactions(ctx context.Context, userId string) (*[]model.Transaction, error) {
-	transactions, err := c.LoyaltyRepository.GetTransactions(ctx, userId)
+	transactions, err := c.LoyaltyQueryRepository.GetTransactions(ctx, userId)
 	fmt.Sprint("err en handler", err)
 	if err != nil {
 		return nil, err
