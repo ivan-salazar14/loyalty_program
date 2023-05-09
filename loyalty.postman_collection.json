@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "18325716-2016-496c-9170-514c9a9a0065",
+		"name": "loyalty",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "921710"
+	},
+	"item": [
+		{
+			"name": "loyalty collect",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODE5NTIxODAsImlhdCI6MTY4MTg2NTc4MCwic3ViIjoiNCJ9.gE3F7HmrMbD16JDpTSBHT5OyrU1H2mu1U5VnZl2xfr4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"UserId\": \"US-9\",\n    \"Product\":{\n        \"ProductId\":\"PR-2\",\n        \"ProductName\":\"jacket\",\n        \"Price\": 1000\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/loyalty/collect",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"loyalty",
+						"collect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loyalty redeem",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODE5NTIxODAsImlhdCI6MTY4MTg2NTc4MCwic3ViIjoiNCJ9.gE3F7HmrMbD16JDpTSBHT5OyrU1H2mu1U5VnZl2xfr4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"UserId\": \"US-9\",\n    \"points\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/loyalty/redeem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"loyalty",
+						"redeem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getpoints",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODE5NTIxODAsImlhdCI6MTY4MTg2NTc4MCwic3ViIjoiNCJ9.gE3F7HmrMbD16JDpTSBHT5OyrU1H2mu1U5VnZl2xfr4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/loyalty/US-9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"loyalty",
+						"US-9"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getpoints",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/loyalty/US-9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"loyalty",
+								"US-9"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 09 May 2023 03:19:41 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "15"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"points\": 290\n}"
+				}
+			]
+		},
+		{
+			"name": "transactions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODE5NTIxODAsImlhdCI6MTY4MTg2NTc4MCwic3ViIjoiNCJ9.gE3F7HmrMbD16JDpTSBHT5OyrU1H2mu1U5VnZl2xfr4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/loyalty/transactions/US-9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"loyalty",
+						"transactions",
+						"US-9"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getpoints",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/loyalty/US-9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"loyalty",
+								"US-9"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 09 May 2023 03:19:41 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "15"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"points\": 290\n}"
+				}
+			]
+		}
+	]
+}
