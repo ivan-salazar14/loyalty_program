@@ -8,7 +8,7 @@ Loyalty project made with architecture DDD and single page on dynamodb.
 
 ### Server start 
     go run cmd/main.go
-### Routes:
+### Routes: added postman collections for endpoints
 	GET     /loyalty/{id}
 
 	POST    /loyalty/redeem
